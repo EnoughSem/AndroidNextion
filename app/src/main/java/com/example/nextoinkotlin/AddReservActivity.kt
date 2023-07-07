@@ -1,11 +1,13 @@
 package com.example.nextoinkotlin
 
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 
@@ -16,6 +18,8 @@ import io.ktor.http.contentType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 class AddReservActivity : AppCompatActivity() {
@@ -23,6 +27,7 @@ class AddReservActivity : AppCompatActivity() {
     private lateinit var dateStart: Date
     private lateinit var dateEnd: Date
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_reserv)
@@ -36,37 +41,10 @@ class AddReservActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun addTime() {
-        val editTextDate6 = findViewById<EditText>(R.id.editTextDate6)
-        val editTextDate5 = findViewById<EditText>(R.id.editTextDate5)
-        val editTextDate3 = findViewById<EditText>(R.id.editTextDate3)
-        val editTextTime6 = findViewById<EditText>(R.id.editTextTime6)
-        val editTextTime4 = findViewById<EditText>(R.id.editTextTime4)
 
-        @Suppress("DEPRECATION")
-        dateStart = Date(
-            editTextDate6.text.toString().toInt(),
-            editTextDate5.text.toString().toInt(),
-            editTextDate3.text.toString().toInt(),
-            editTextTime6.text.toString().toInt(),
-            editTextTime4.text.toString().toInt()
-        )
-
-        val editTextDate9 = findViewById<EditText>(R.id.editTextDate9)
-        val editTextDate8 = findViewById<EditText>(R.id.editTextDate8)
-        val editTextDate7 = findViewById<EditText>(R.id.editTextDate7)
-        val editTextTime5 = findViewById<EditText>(R.id.editTextTime5)
-        val editTextTime3 = findViewById<EditText>(R.id.editTextTime3)
-
-        @Suppress("DEPRECATION")
-        dateEnd = Date(
-            editTextDate9.text.toString().toInt(),
-            editTextDate8.text.toString().toInt(),
-            editTextDate7.text.toString().toInt(),
-            editTextTime5.text.toString().toInt(),
-            editTextTime3.text.toString().toInt()
-        )
-
+        setDateTime()
 
         val url = "https://mamont-server.ru:8888/api/schedule/788d3103-8a54-4aae-86fb-f19b5c09db58/$dateStart/$dateEnd"
         HttpClient().use { client ->
@@ -90,5 +68,31 @@ class AddReservActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setDateTime(){
+        val editTextDate6 = findViewById<EditText>(R.id.editTextDate6)
+        val editTextDate5 = findViewById<EditText>(R.id.editTextDate5)
+        val editTextDate3 = findViewById<EditText>(R.id.editTextDate3)
+        val editTextTime6 = findViewById<EditText>(R.id.editTextTime6)
+        val editTextTime4 = findViewById<EditText>(R.id.editTextTime4)
+
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        var dateStr =  editTextDate6.text.toString() + "-" + editTextDate5.text.toString() + "-" + editTextDate3.text +" "+
+                editTextTime6.text.toString() + ":" + editTextTime4.text.toString() +":00"
+        dateStart = Date.parse(dateStr, dateFormat)
+
+
+        val editTextDate9 = findViewById<EditText>(R.id.editTextDate9)
+        val editTextDate8 = findViewById<EditText>(R.id.editTextDate8)
+        val editTextDate7 = findViewById<EditText>(R.id.editTextDate7)
+        val editTextTime5 = findViewById<EditText>(R.id.editTextTime5)
+        val editTextTime3 = findViewById<EditText>(R.id.editTextTime3)
+
+        dateStr =  editTextDate9.text.toString() + "-" + editTextDate8.text.toString() + "-" + editTextDate7.text +" "+
+                editTextTime5.text.toString() + ":" + editTextTime3.text.toString() +":00"
+        dateEnd = Date.parse(dateStr, dateFormat)
+
     }
 }
