@@ -4,6 +4,7 @@ package com.example.nextoinkotlin
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -53,12 +54,25 @@ class AddReservActivity : AppCompatActivity() {
         HttpClient().use { client ->
             val date = client.get<String>(url)
             if (date == "[]") {
-                client.request("https://mamont-server.ru:8888/api/schedule") {
-                    contentType(ContentType.Application.Json)
-                    method = HttpMethod.Post
-                    body = "{\"studio_id\": \"788d3103-8a54-4aae-86fb-f19b5c09db58\"," +
-                            "\"start\": \"$dateStart\"," +
-                            "\"end\": \"$dateEnd\"}"
+                try {
+                    client.request("https://mamont-server.ru:8888/api/schedule") {
+                        contentType(ContentType.Application.Json)
+                        method = HttpMethod.Post
+                        body = "{\"studio_id\": \"788d3103-8a54-4aae-86fb-f19b5c09db58\"," +
+                                "\"start\": \"$dateStart+3\"," +
+                                "\"end\": \"$dateEnd+3\"}"
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Toast.makeText(
+                                applicationContext,
+                                "Успешно",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+                catch (e : Exception)
+                {
+                    Log.i("INFO", e.message.toString())
                 }
             } else {
                 CoroutineScope(Dispatchers.Main).launch {
