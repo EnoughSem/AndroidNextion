@@ -3,6 +3,7 @@ package com.example.nextoinkotlin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.google.gson.Gson
@@ -38,7 +39,7 @@ class ReservActivity : AppCompatActivity() {
             val typeToken = object : TypeToken<ArrayList<Schedules>>() {}.type
             val schedules = Gson().fromJson<ArrayList<Schedules>>(dateString, typeToken)
             schedules.forEach {
-                if (it.timeStart!! >= Date() && it.timeEnd!! <= Date())
+                if (it.timeStart!! <= Date() && it.timeEnd!! >= Date())
                     CoroutineScope(Dispatchers.Main).launch {
                         textViewStart.text = it.timeStart.toString()
                         textViewEnd.text = it.timeEnd.toString()

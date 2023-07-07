@@ -21,14 +21,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Date
 
 class AddReservActivity : AppCompatActivity() {
 
-    private lateinit var dateStart: LocalDateTime
-    private lateinit var dateEnd: LocalDateTime
+    private lateinit var dateStart: OffsetDateTime
+    private lateinit var dateEnd: OffsetDateTime
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,8 +60,8 @@ class AddReservActivity : AppCompatActivity() {
                         contentType(ContentType.Application.Json)
                         method = HttpMethod.Post
                         body = "{\"studio_id\": \"788d3103-8a54-4aae-86fb-f19b5c09db58\"," +
-                                "\"start\": \"$dateStart+3\"," +
-                                "\"end\": \"$dateEnd+3\"}"
+                                "\"start\": \"$dateStart\"," +
+                                "\"end\": \"$dateEnd\"}"
                         CoroutineScope(Dispatchers.Main).launch {
                             Toast.makeText(
                                 applicationContext,
@@ -100,7 +101,7 @@ class AddReservActivity : AppCompatActivity() {
                     editTextDate3.text.toString()
                         .padStart(2, '0') + " " + editTextTime6.text.toString().padStart(2, '0') +
                     ":" + editTextTime4.text.toString().padStart(2, '0') + ":00"
-        dateStart = LocalDateTime.parse(dateStr, dateFormat)
+        dateStart = LocalDateTime.parse(dateStr, dateFormat).atOffset(ZoneOffset.UTC)
 
 
         val editTextDate9 = findViewById<EditText>(R.id.editTextDate9)
@@ -116,6 +117,6 @@ class AddReservActivity : AppCompatActivity() {
                         .padStart(2, '0') + " " + editTextTime5.text.toString()
                 .padStart(2, '0') + ":" +
                     editTextTime3.text.toString().padStart(2, '0') + ":00"
-        dateEnd = LocalDateTime.parse(dateStr, dateFormat)
+        dateEnd = LocalDateTime.parse(dateStr, dateFormat).atOffset(ZoneOffset.UTC)
     }
 }
