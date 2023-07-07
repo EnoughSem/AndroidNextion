@@ -75,9 +75,9 @@ class AddReservActivity : AppCompatActivity() {
                 client.request("https://mamont-server.ru:8888/api/schedule"){
                     contentType(ContentType.Application.Json)
                     method = HttpMethod.Post
-                    body = {"\"studio_id\": \"788d3103-8a54-4aae-86fb-f19b5c09db58\","+
+                    body =  "{\"studio_id\": \"788d3103-8a54-4aae-86fb-f19b5c09db58\","+
                             "\"start\": \"$dateStart\"," +
-                            "\"end\": \"$dateEnd\""}
+                            "\"end\": \"$dateEnd\"}"
                 }
             }
             else{

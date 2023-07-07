@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    suspend fun click() {
+    private suspend fun click() {
         val editTextText: EditText = findViewById(R.id.editTextText)
         val editTextTextPassword: EditText = findViewById(R.id.editTextTextPassword)
         val login = editTextText.text.toString()
@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         HttpClient().use { client ->
             val dateString = client.get<String>(url)
             val typeToken = object : TypeToken<ArrayList<Users>>() {}.type
-            var users = Gson().fromJson<ArrayList<Users>>(dateString, typeToken)
+            val users = Gson().fromJson<ArrayList<Users>>(dateString, typeToken)
             users.forEach{
                 if (it.userLogin == login && it.userPassword == password){
                     openReservActivity()
