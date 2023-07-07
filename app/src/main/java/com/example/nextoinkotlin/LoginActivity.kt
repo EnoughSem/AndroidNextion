@@ -37,8 +37,7 @@ class LoginActivity : AppCompatActivity() {
         val login = editTextText.text.toString()
         val password = editTextTextPassword.text.toString()
         val url = "https://www.mamont-server.ru:8888/api/user"
-        val client = HttpClient()
-        HttpClient().use {
+        HttpClient().use { client ->
             val dateString = client.get<String>(url)
             val typeToken = object : TypeToken<ArrayList<Users>>() {}.type
             var users = Gson().fromJson<ArrayList<Users>>(dateString, typeToken)

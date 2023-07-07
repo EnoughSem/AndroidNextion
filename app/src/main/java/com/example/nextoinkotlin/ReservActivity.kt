@@ -33,8 +33,7 @@ class ReservActivity : AppCompatActivity() {
         val textViewStart: TextView = findViewById(R.id.textView3)
         val textViewEnd: TextView = findViewById(R.id.textView4)
         val url = "https://mamont-server.ru:8888/api/schedule/788d3103-8a54-4aae-86fb-f19b5c09db58"
-        val client = HttpClient()
-        HttpClient().use {
+        HttpClient().use {client ->
             val dateString = client.get<String>(url)
             val typeToken = object : TypeToken<ArrayList<Schedules>>() {}.type
             val schedules = Gson().fromJson<ArrayList<Schedules>>(dateString, typeToken)
