@@ -81,7 +81,13 @@ class AddReservActivity : AppCompatActivity() {
                 }
             }
             else{
-                Toast.makeText(this, "Данное время занято. Пожалуйста, выберете другое", Toast.LENGTH_SHORT)
+                CoroutineScope(Dispatchers.Main).launch {
+                    Toast.makeText(
+                        applicationContext,
+                        "Данное время занято. Пожалуйста, выберете другое",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
