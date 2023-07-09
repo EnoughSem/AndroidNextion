@@ -13,8 +13,10 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="56dp"
         android:ems="10"
-        android:hint="hour"
+        android:hint="Час"
         android:inputType="time"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate5" />
 
@@ -22,9 +24,11 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginBottom="44dp"
-        android:text="Back"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="32dp"
+        android:text="Назад"
+        android:textSize="20sp"
+        android:theme="@style/Button.Theme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -33,19 +37,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="128dp"
-        android:layout_marginBottom="56dp"
-        android:text="Add time"
+        android:layout_marginBottom="32dp"
+        android:text="Записать"
+        android:textSize="20sp"
+        android:theme="@style/Button.Theme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/editTextDate5"
-        android:layout_width="55dp"
+        android:layout_width="65dp"
         android:layout_height="55dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="64dp"
         android:ems="10"
-        android:hint="month"
+        android:hint="Месяц"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="date"
         app:layout_constraintStart_toEndOf="@+id/editTextDate3"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +65,9 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="64dp"
         android:ems="10"
-        android:hint="day"
+        android:hint="День"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -69,20 +79,24 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="64dp"
         android:ems="10"
-        android:hint="year"
+        android:hint="Год"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="date"
         app:layout_constraintStart_toEndOf="@+id/editTextDate5"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextDate8"
-        android:layout_width="55dp"
+        android:layout_width="65dp"
         android:layout_height="55dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="28dp"
         android:ems="10"
-        android:hint="mouth"
+        android:hint="Месяц"
         android:inputType="date"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/editTextDate9"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +107,9 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="28dp"
         android:ems="10"
-        android:hint="year"
+        android:hint="Год"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -105,7 +121,9 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="28dp"
         android:ems="10"
-        android:hint="day"
+        android:hint="День"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="date"
         app:layout_constraintEnd_toStartOf="@+id/editTextDate8"
         app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +135,9 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
-        android:hint="minute"
+        android:hint="Минуты"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate9" />
@@ -129,7 +149,9 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="28dp"
         android:ems="10"
-        android:hint="hour"
+        android:hint="Час"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="time"
         app:layout_constraintEnd_toStartOf="@+id/editTextTime3"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate8" />
@@ -141,7 +163,9 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="56dp"
         android:ems="10"
-        android:hint="minute"
+        android:hint="Минуты"
+        android:textColorHint="#828282"
+        android:backgroundTint="@color/black"
         android:inputType="time"
         app:layout_constraintStart_toEndOf="@+id/editTextTime6"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate5" />
@@ -153,7 +177,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:text="Начало записи"
-        android:textSize="24sp"
+        android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -164,7 +188,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="100dp"
         android:text="Конец записи"
-        android:textSize="24sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

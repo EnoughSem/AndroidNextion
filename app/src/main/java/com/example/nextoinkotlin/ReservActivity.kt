@@ -15,14 +15,17 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 class ReservActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         const val UUID = "UUID_Studio"
     }
+
     @SuppressLint("MissingInflatedId")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,24 +48,37 @@ class ReservActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun startConnect(uuid: String) {
         val textViewStart: TextView = findViewById(R.id.textView3)
         val textViewEnd: TextView = findViewById(R.id.textView4)
-        val url = "https://mamont-server.ru:8888/api/schedule/$uuid/"
-        HttpClient().use {client ->
+        val url = "https://mamont-server.ru:8888/api/schedule/$uuid"
+        HttpClient().use { client ->
             val dateString = client.get<String>(url)
             val typeToken = object : TypeToken<ArrayList<Schedules>>() {}.type
             val schedules = Gson().fromJson<ArrayList<Schedules>>(dateString, typeToken)
             schedules.forEach {
-                if (it.timeStart!! <= Date() && it.timeEnd!! >= Date())
+                val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+                val dateNow = Date.from(LocalDateTime.now().atOffset(ZoneOffset.UTC).toInstant())
+                if (it.timeStart!! <= dateNow && it.timeEnd!! >= dateNow) {
                     CoroutineScope(Dispatchers.Main).launch {
-                        textViewStart.text = it.timeStart!!.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().toString()
-                        textViewEnd.text = it.timeEnd!!.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().toString()
+                        val textView: TextView = findViewById(R.id.textView7)
+                        textView.text = "Студия занята"
+                        textViewStart.text = "С: " + it.timeStart!!.toInstant()
+                                .atOffset(ZoneOffset.UTC)
+                                .toLocalDateTime().format(dateFormat)
+                        textViewEnd.text = "До: " + it.timeEnd!!.toInstant().
+                                    atOffset(ZoneOffset.UTC)
+                                    .toLocalDateTime().format(dateFormat)
                     }
+                }
             }
         }
     }
+
+
+
 
     private fun openAddReservActivity(uuid : String) {
         val intent = Intent(this, AddReservActivity::class.java)
