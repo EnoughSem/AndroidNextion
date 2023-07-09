@@ -1,11 +1,13 @@
 package com.example.nextoinkotlin
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.ktor.client.HttpClient
@@ -13,27 +15,41 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.ZoneOffset
 import java.util.Date
 
 class ReservActivity : AppCompatActivity() {
+
+    companion object{
+        const val UUID = "UUID_Studio"
+    }
+    @SuppressLint("MissingInflatedId")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserv)
 
+        val uuid = intent.getStringExtra(UUID)
         CoroutineScope(Dispatchers.Default).launch {
-            startConnect()
+            startConnect(uuid!!)
         }
-
         val buttonOpenAddReservActivity: Button = findViewById(R.id.button4)
         buttonOpenAddReservActivity.setOnClickListener {
-            openAddReservActivity()
+
+            openAddReservActivity(uuid!!)
         }
+        val buttonOpenListStudiosActivity: Button = findViewById(R.id.button8)
+        buttonOpenListStudiosActivity.setOnClickListener {
+            openListStudiosActivity()
+        }
+
     }
 
-    private suspend fun startConnect() {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private suspend fun startConnect(uuid: String) {
         val textViewStart: TextView = findViewById(R.id.textView3)
         val textViewEnd: TextView = findViewById(R.id.textView4)
-        val url = "https://mamont-server.ru:8888/api/schedule/788d3103-8a54-4aae-86fb-f19b5c09db58"
+        val url = "https://mamont-server.ru:8888/api/schedule/$uuid/"
         HttpClient().use {client ->
             val dateString = client.get<String>(url)
             val typeToken = object : TypeToken<ArrayList<Schedules>>() {}.type
@@ -41,15 +57,21 @@ class ReservActivity : AppCompatActivity() {
             schedules.forEach {
                 if (it.timeStart!! <= Date() && it.timeEnd!! >= Date())
                     CoroutineScope(Dispatchers.Main).launch {
-                        textViewStart.text = it.timeStart.toString()
-                        textViewEnd.text = it.timeEnd.toString()
+                        textViewStart.text = it.timeStart!!.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().toString()
+                        textViewEnd.text = it.timeEnd!!.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime().toString()
                     }
             }
         }
     }
 
-    private fun openAddReservActivity() {
+    private fun openAddReservActivity(uuid : String) {
         val intent = Intent(this, AddReservActivity::class.java)
+        intent.putExtra(AddReservActivity.UUID, uuid)
+        startActivity(intent)
+    }
+
+    private fun openListStudiosActivity() {
+        val intent = Intent(this, ListStudiosActivity::class.java)
         startActivity(intent)
     }
 }

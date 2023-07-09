@@ -1,6 +1,7 @@
 package com.example.nextoinkotlin
 
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,14 +20,16 @@ import io.ktor.http.contentType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.Date
 
 class AddReservActivity : AppCompatActivity() {
+
+    companion object{
+        const val UUID = "UUID_Studio"
+    }
 
     private lateinit var dateStart: OffsetDateTime
     private lateinit var dateEnd: OffsetDateTime
@@ -36,22 +39,28 @@ class AddReservActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_reserv)
 
+        val uuid = intent.getStringExtra(UUID)
         val buttonAdd = findViewById<Button>(R.id.button6)
         buttonAdd.setOnClickListener {
             CoroutineScope(Dispatchers.Default).launch {
-                addTime()
+                addTime(uuid!!)
             }
+        }
+
+        val button = findViewById<Button>(R.id.button5)
+        button.setOnClickListener {
+            openReservActivity()
         }
 
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private suspend fun addTime() {
+    private suspend fun addTime(uuid: String) {
         val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         setDateTime(dateFormat)
 
         val url =
-            "https://mamont-server.ru:8888/api/schedule/788d3103-8a54-4aae-86fb-f19b5c09db58/$dateStart/$dateEnd"
+            "https://mamont-server.ru:8888/api/schedule/$uuid/$dateStart/$dateEnd"
         HttpClient().use { client ->
             val date = client.get<String>(url)
             if (date == "[]") {
@@ -59,7 +68,7 @@ class AddReservActivity : AppCompatActivity() {
                     client.request("https://mamont-server.ru:8888/api/schedule") {
                         contentType(ContentType.Application.Json)
                         method = HttpMethod.Post
-                        body = "{\"studio_id\": \"788d3103-8a54-4aae-86fb-f19b5c09db58\"," +
+                        body = "{\"studio_id\": \"$uuid\"," +
                                 "\"start\": \"$dateStart\"," +
                                 "\"end\": \"$dateEnd\"}"
                         CoroutineScope(Dispatchers.Main).launch {
@@ -118,5 +127,10 @@ class AddReservActivity : AppCompatActivity() {
                 .padStart(2, '0') + ":" +
                     editTextTime3.text.toString().padStart(2, '0') + ":00"
         dateEnd = LocalDateTime.parse(dateStr, dateFormat).atOffset(ZoneOffset.UTC)
+    }
+
+    private fun openReservActivity(){
+        val intent = Intent(this, ReservActivity::class.java)
+        startActivity(intent)
     }
 }

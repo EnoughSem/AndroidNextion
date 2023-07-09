@@ -10,8 +10,8 @@
         android:id="@+id/editTextTime6"
         android:layout_width="74dp"
         android:layout_height="55dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="56dp"
         android:ems="10"
         android:hint="hour"
         android:inputType="time"
@@ -22,8 +22,8 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="44dp"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -32,42 +32,66 @@
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="56dp"
         android:text="Add time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
+        android:id="@+id/editTextDate5"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="month"
+        android:inputType="date"
+        app:layout_constraintStart_toEndOf="@+id/editTextDate3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
         android:id="@+id/editTextDate3"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:hint="day"
         android:inputType="date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextDate5"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="100dp"
-        android:ems="10"
-        android:hint="month"
-        android:inputType="date"
-        app:layout_constraintEnd_toStartOf="@+id/editTextDate6"
-        app:layout_constraintStart_toEndOf="@+id/editTextDate3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextDate6"
         android:layout_width="151dp"
         android:layout_height="55dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="year"
+        android:inputType="date"
+        app:layout_constraintStart_toEndOf="@+id/editTextDate5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextDate8"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="mouth"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@+id/editTextDate9"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextDate9"
+        android:layout_width="151dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="28dp"
         android:ems="10"
         android:hint="year"
         android:inputType="date"
@@ -75,47 +99,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextDate8"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="180dp"
-        android:ems="10"
-        android:hint="mouth"
-        android:inputType="date"
-        app:layout_constraintEnd_toStartOf="@+id/editTextDate9"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toEndOf="@+id/editTextDate7"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate5" />
-
-    <EditText
-        android:id="@+id/editTextDate9"
-        android:layout_width="151dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="year"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate6" />
-
-    <EditText
         android:id="@+id/editTextDate7"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="28dp"
         android:ems="10"
         android:hint="day"
         android:inputType="date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate3" />
+        app:layout_constraintEnd_toStartOf="@+id/editTextDate8"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTime3"
         android:layout_width="74dp"
         android:layout_height="55dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
         android:hint="minute"
@@ -127,24 +126,46 @@
         android:id="@+id/editTextTime5"
         android:layout_width="74dp"
         android:layout_height="55dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="28dp"
         android:ems="10"
         android:hint="hour"
         android:inputType="time"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTime3"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate8" />
 
     <EditText
         android:id="@+id/editTextTime4"
         android:layout_width="74dp"
         android:layout_height="55dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="56dp"
         android:ems="10"
         android:hint="minute"
         android:inputType="time"
+        app:layout_constraintStart_toEndOf="@+id/editTextTime6"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate5" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:text="Начало записи"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="100dp"
+        android:text="Конец записи"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate6" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

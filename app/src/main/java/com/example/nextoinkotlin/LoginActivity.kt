@@ -43,14 +43,14 @@ class LoginActivity : AppCompatActivity() {
             val users = Gson().fromJson<ArrayList<Users>>(dateString, typeToken)
             users.forEach{
                 if (it.userLogin == login && it.userPassword == password){
-                    openReservActivity()
+                    openListStudiosActivity()
                 }
             }
         }
     }
 
-    private fun openReservActivity() {
-        val intent = Intent(this, ReservActivity::class.java)
+    private fun openListStudiosActivity() {
+        val intent = Intent(this, ListStudiosActivity::class.java)
         startActivity(intent)
     }
 
